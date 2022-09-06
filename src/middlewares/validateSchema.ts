@@ -2,11 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import joi from 'joi';
 import {stripHtml} from 'string-strip-html';
 
-import { ISignUpBody } from "../types/userTypes";
+import { IUserBody } from "../types/userTypes";
 
 export function validateSchema(schema:joi.ObjectSchema){
     return (req:Request, res:Response, next:NextFunction)=>{
-        const body:ISignUpBody = req.body;
+        const body:IUserBody = req.body;
 
         for (const key of Object.keys(body)){
             body[key] = stripHtml(body[key])?.result.trim() ?? body[key];

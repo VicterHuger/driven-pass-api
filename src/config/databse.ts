@@ -1,5 +1,5 @@
-import {ISignUpBody} from '../types/userTypes';
-const users: ISignUpBody[] = [ 
+import {IUserBody} from '../types/userTypes';
+const users: IUserBody[] = [ 
     {
         email:"teste@gmail.com",
         password: "1234567890"
