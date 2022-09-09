@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int             @id @default(autoincrement())
+  email             String          @unique
+  password          String    
+  sessions          Session[] 
+  credentials       Credential[]
+  textSafes         TextSafe[]
+  cards             Card[]
+  wifis             Wifi[]
+}
+
+model Session {
+  id                Int             @id @default(autoincrement())
+  token             String
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+}
+
+model Credential {
+  id                Int             @id @default(autoincrement())
+  title             String
+  url               String
+  userName          String
+  password          String
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+}
+
+model TextSafe {
+  id                Int             @id @default(autoincrement())
+  title             String          
+  text              String          
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+}
+
+model Card  {
+  id                Int           @id @default(autoincrement())
+  title             String        
+  number            String        
+  nameOnCard        String
+  securityCode      String
+  expirationDate    String
+  password          String
+  isVirtual         Boolean
+  type              TypeCard
+  user              User          @relation(fields: [userId], references: [id])
+  userId            Int
+}
+
+model Wifi  {
+  id                Int           @id @default(autoincrement())
+  title             String        
+  networkName       String
+  networkPassword   String
+  user              User          @relation(fields: [userId], references: [id])
+  userId            Int
+}
+
+
+enum TypeCard{
+  credit
+  debit
+  dualCard
+}
