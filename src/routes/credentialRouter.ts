@@ -7,6 +7,8 @@ import { TypeCredentialInsert } from "../types/credentialType";
 
 const router:Router = Router();
 
-router.post('/credentials/create', validateSchema<TypeCredentialInsert>(credentialSchema), tokenValidation , credentialController.createCredencial)
+router.post('/credentials/create', validateSchema<TypeCredentialInsert>(credentialSchema), tokenValidation , credentialController.createCredencial);
+
+router.get('/credentials', tokenValidation, credentialController.listCredentials)
 
 export default router;

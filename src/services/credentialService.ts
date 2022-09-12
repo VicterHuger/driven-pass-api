@@ -3,7 +3,7 @@ import { Credential } from "@prisma/client";
 import * as sessionService from './sessionService';
 import * as credentialRepository from '../repositories/credentialRepository';
 import { generateThrowErrorMessage } from "../utils/errorUtils";
-import { cryptrPasswords } from "../utils/generalFunctions";
+import { cryptrPasswords, descryptItemOfEncryptArray } from "../utils/generalFunctions";
 
 
 export async function createCredencial(body:TypeCredentialInsert, sessionId:number){
@@ -17,5 +17,12 @@ export async function createCredencial(body:TypeCredentialInsert, sessionId:numb
     const credentialCreated = await credentialRepository.createCredencial(body, userId);
     if(!credentialCreated) generateThrowErrorMessage('InternalServerError', 'Something went wrong when creating a new credential');
     return {id:credentialCreated.id, title:credentialCreated.title, userName:credentialCreated.userName};
+}
+
+export async function listCredentials(sessionId:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const credentialsByUser = await credentialRepository.getCredentialsByUser(userId);
+    if(!credentialsByUser) return [];
+    return descryptItemOfEncryptArray<Credential>(credentialsByUser);
 }
 

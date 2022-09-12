@@ -12,3 +12,7 @@ export async function getCredentialByUserAndUrl(userId:number, url:string){
 export async function createCredencial(credential:TypeCredentialInsert, userId:number){
     return await prisma.credential.create({data:{...credential,userId }});
 }
+
+export async function getCredentialsByUser(userId:number){
+    return await prisma.credential.findMany({where:{userId}});
+}
