@@ -20,14 +20,14 @@ export async function listCards(_req:Request, res:Response){
     return res.status(200).send(cards);
 }
 
-// export async function listcardById(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
-//     const id:number = res.locals.id;
+export async function listCardById(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
 
-//     const card:card = await cardService.listcardById(sessionId,id);
+    const card:Card = await cardService.listCardById(sessionId,id);
 
-//     return res.status(200).send(card);
-// }
+    return res.status(200).send(card);
+}
 
 // export async function deletecard(_req:Request, res:Response){
 //     const sessionId: number = res.locals.sessionId;

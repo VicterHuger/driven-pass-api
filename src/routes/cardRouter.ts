@@ -12,7 +12,7 @@ router.post('/cards/create', validateSchema<TypeCardInsert>(cardSchema), tokenVa
 
 router.get('/cards', tokenValidation, cardController.listCards);
 
-// router.get('/cards/:id', tokenValidation, validateParamId, cardController.listCardById );
+router.get('/cards/:id', tokenValidation, validateParamId, cardController.listCardById );
 
 // router.delete('/cards/:id', tokenValidation, validateParamId, cardController.deleteCard);
 

@@ -24,14 +24,15 @@ export async function listCards(sessionId:number){
     return descryptItemOfEncryptArray<Card>(cardsByUser);
 }
 
-// export async function listcardById(sessionId:number, id:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const card = await cardRepository.getcardById(id);
-//     if(!card) generateThrowErrorMessage("NotFound", "There is no card with this id");
-//     if(card.userId !== userId) generateThrowErrorMessage("Unauthorized", "This card do not belongs to you!");
-//     card.password = descryptrPasswords(card.password);
-//     return card;
-// }
+export async function listCardById(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const card = await cardRepository.getCardById(id);
+    if(!card) generateThrowErrorMessage("NotFound", "There is no card with this id");
+    if(card.userId !== userId) generateThrowErrorMessage("Unauthorized", "This card do not belongs to you!");
+    card.password = descryptrPasswords(card.password);
+    card.securityCode = descryptrPasswords(card.securityCode);
+    return card;
+}
 
 // export async function deletecard(sessionId:number, id:number){
 //     const userId:number = await sessionService.getUserBySessionId(sessionId);
