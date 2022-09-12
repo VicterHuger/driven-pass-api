@@ -25,18 +25,18 @@ export async function listWifis(sessionId:number){
 export async function listWifiById(sessionId:number, id:number){
     const userId:number = await sessionService.getUserBySessionId(sessionId);
     const wifi:Wifi = await wifiRepository.getWifiById(id);
-    if(!wifi) generateThrowErrorMessage("NotFound", "There is no safe note with this id");
+    if(!wifi) generateThrowErrorMessage("NotFound", "There is no wifi with this id");
     if(wifi.userId !== userId) generateThrowErrorMessage("Unauthorized", "This wifi do not belongs to you!");
     wifi.networkPassword =descryptrPasswords(wifi.networkPassword);
     return wifi;
 }
 
-// export async function deletewifi(sessionId:number, id:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const wifi = await wifiRepository.getwifiById(id);
-//     if(!wifi) generateThrowErrorMessage("NotFound", "There is no safe note with this id");
-//     if(wifi.userId !== userId) generateThrowErrorMessage("Unauthorized", "This safe note do not belongs to you!");
-//     const wifiDeleted = await wifiRepository.deletewifi(id);
-//     if(!wifiDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this safe note");
-//     return;
-// }
+export async function deleteWifi(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const wifi = await wifiRepository.getWifiById(id);
+    if(!wifi) generateThrowErrorMessage("NotFound", "There is no wifi with this id");
+    if(wifi.userId !== userId) generateThrowErrorMessage("Unauthorized", "This wifi do not belongs to you!");
+    const wifiDeleted = await wifiRepository.deleteWifi(id);
+    if(!wifiDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this wifi");
+    return;
+}

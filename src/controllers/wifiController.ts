@@ -29,11 +29,11 @@ export async function listWifiById(_req:Request, res:Response){
     return res.status(200).send(wifi);
 }
 
-// export async function deletewifi(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
-//     const id:number = res.locals.id;
+export async function deleteWifi(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
 
-//     await wifiService.deletewifi(sessionId,id);
+    await wifiService.deleteWifi(sessionId,id);
 
-//     return res.status(204).send('Wifi deleted');
-// }
+    return res.status(204).send('Wifi deleted');
+}
