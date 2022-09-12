@@ -4,7 +4,6 @@ import * as userRepository from '../repositories/userRepository';
 import * as sessionRepository from '../repositories/sessionRepository';
 import { generateThrowErrorMessage } from "../utils/errorUtils";
 import { User } from '@prisma/client';
-import { TypeSessionInsert } from '../types/sessionType';
 import { Session } from '@prisma/client';
 
 export async function createUser(email:string, password:string){
@@ -30,7 +29,7 @@ export async function singInUser(email:string, password:string){
 
     const session:Session= await sessionRepository.createSession({userId:user.id});
 
-    const token:string = jwt.sign({sessionId: session.id}, process.env.JWT_SECRET, {expiresIn:"1 day"});
+    const token:string = jwt.sign({sessionId: session.id}, process.env.TOKEN_SECRET_KEY, {expiresIn:process.env.TOKEN_EXPIRES_IN});
     
     return token;
 }

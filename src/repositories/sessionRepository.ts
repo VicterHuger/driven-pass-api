@@ -9,3 +9,7 @@ export async function createSession(session:TypeSessionInsert){
 export async function deleteSessions(userId:number){
     await prisma.session.deleteMany({where:{userId} })
 }
+
+export async function getSessionById(id:number) {
+    return await prisma.session.findUnique({where:{id}})
+}
