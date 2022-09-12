@@ -1,12 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import joi from 'joi';
-import {stripHtml} from 'string-strip-html';
+import { stripHtml } from 'string-strip-html';
 
-import { IUserBody } from "../types/userTypes";
+interface ICustomRequestBody <T> extends Request {
+    body: T
+}
 
-export function validateSchema(schema:joi.ObjectSchema){
-    return (req:Request, res:Response, next:NextFunction)=>{
-        const body:IUserBody = req.body;
+
+export function validateSchema<T>(schema:joi.ObjectSchema<T>){
+    return (req:ICustomRequestBody<T>, res:Response, next:NextFunction)=>{
+        const body= req.body;
 
         for (const key of Object.keys(body)){
             body[key] = stripHtml(body[key])?.result.trim() ?? body[key];

@@ -1,28 +1,36 @@
-import users from "../config/databse"; //provisional db
-import { generateThrowErrorMessage } from "../utils/errorUtils";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import * as userRepository from '../repositories/userRepository';
+import * as sessionRepository from '../repositories/sessionRepository';
+import { generateThrowErrorMessage } from "../utils/errorUtils";
+import { User } from '@prisma/client';
+import { TypeSessionInsert } from '../types/sessionType';
+import { Session } from '@prisma/client';
 
 export async function createUser(email:string, password:string){
-    //acessar banco de dados ...
-    if (email===users[0].email) generateThrowErrorMessage("Conflict","This e-mail was already registered!");
+    const user:User|null = await userRepository.findUserByEmail(email);
+    if (!!user && email===user.email) generateThrowErrorMessage("Conflict","This e-mail was already registered!");
     if(password.length<10) generateThrowErrorMessage("UnprocessableEntity","Password must contain at least 10 characteres!");
     const hashPassword:string = bcrypt.hashSync(password, 10);
-   
-    //enviar para o banco de dados
-    users[0].password = hashPassword;
+    
+    const result:User = await userRepository.createUser({email, password:hashPassword});
+    console.log(result);
+
     return;
     
 }
 
 export async function singInUser(email:string, password:string){
-    //acessar banco de dados ... users
-    if(email!==users[0].email) generateThrowErrorMessage("Unauthorized", "Email or password invalid!");
+    const user:User|null = await userRepository.findUserByEmail(email);
+    if(user===null || email!==user.email) generateThrowErrorMessage("Unauthorized", "Email or password invalid!");
 
-    if(!bcrypt.compareSync(password,users[0].password)) generateThrowErrorMessage("Unauthorized","Email or password invalid");
-    //id vindo do banco 
-    const id=1;//pode ser melhor usar o id da sessão
+    if(!bcrypt.compareSync(password,user.password)) generateThrowErrorMessage("Unauthorized","Email or password invalid");
 
-    const token:string = jwt.sign({userId: id}, process.env.JWT_SECRET, {expiresIn:"1 day"});
+    await sessionRepository.deleteSessions(user.id);
+
+    const session:Session= await sessionRepository.createSession({userId:user.id});
+
+    const token:string = jwt.sign({sessionId: session.id}, process.env.JWT_SECRET, {expiresIn:"1 day"});
+    
     return token;
 }
