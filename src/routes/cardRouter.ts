@@ -10,7 +10,7 @@ const router:Router = Router();
 
 router.post('/cards/create', validateSchema<TypeCardInsert>(cardSchema), tokenValidation , cardController.createCard);
 
-// router.get('/cards', tokenValidation, cardController.listCards);
+router.get('/cards', tokenValidation, cardController.listCards);
 
 // router.get('/cards/:id', tokenValidation, validateParamId, cardController.listCardById );
 

@@ -9,9 +9,9 @@ export async function createCard(card:TypeCardInsert, userId:number){
     return await prisma.card.create({data:{...card,userId }});
 }
 
-// export async function getcardsByUser(userId:number){
-//     return await prisma.card.findMany({where:{userId}});
-// }
+export async function getCardsByUser(userId:number){
+    return await prisma.card.findMany({where:{userId}});
+}
 
 // export async function getcardById(id:number){
 //     return await prisma.card.findUnique({where:{id}});

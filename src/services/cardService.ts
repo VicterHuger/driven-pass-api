@@ -17,12 +17,12 @@ export async function createcard(body:TypeCardInsert, sessionId:number){
     return {id:cardCreated.id, title:cardCreated.title, number:cardCreated.number, nameOnCard: cardCreated.nameOnCard, expirationDate:cardCreated.expirationDate, isVirtual: cardCreated.isVirtual, type:cardCreated.type};
 }
 
-// export async function listcards(sessionId:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const cardsByUser = await cardRepository.getcardsByUser(userId);
-//     if(!cardsByUser) return [];
-//     return descryptItemOfEncryptArray<card>(cardsByUser);
-// }
+export async function listCards(sessionId:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const cardsByUser = await cardRepository.getCardsByUser(userId);
+    if(!cardsByUser) return [];
+    return descryptItemOfEncryptArray<Card>(cardsByUser);
+}
 
 // export async function listcardById(sessionId:number, id:number){
 //     const userId:number = await sessionService.getUserBySessionId(sessionId);

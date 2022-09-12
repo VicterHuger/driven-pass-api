@@ -12,13 +12,13 @@ export async function createCard(_req:Request, res:Response){
     return res.status(201).send(card);
 }
 
-// export async function listcards(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
+export async function listCards(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
 
-//     const cards:card[] = await cardService.listcards(sessionId);
+    const cards:Card[] = await cardService.listCards(sessionId);
 
-//     return res.status(200).send(cards);
-// }
+    return res.status(200).send(cards);
+}
 
 // export async function listcardById(_req:Request, res:Response){
 //     const sessionId: number = res.locals.sessionId;
