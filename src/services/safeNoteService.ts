@@ -3,7 +3,6 @@ import { SafeNote } from "@prisma/client";
 import * as sessionService from './sessionService';
 import * as safeNoteRepository from '../repositories/safeNoteRepository';
 import { generateThrowErrorMessage } from "../utils/errorUtils";
-import { cryptrPasswords, descryptrPasswords } from "../utils/generalFunctions";
 
 
 export async function createSafeNote(body:TypeSafeNoteInsert, sessionId:number){

@@ -12,7 +12,9 @@ export function validateSchema<T>(schema:joi.ObjectSchema<T>){
         const body= req.body;
 
         for (const key of Object.keys(body)){
-            body[key] = stripHtml(body[key])?.result.trim() ?? body[key];
+            if(typeof(body[key]) === "string" ){
+                body[key] = stripHtml(body[key])?.result.trim() ?? body[key];
+            }
         }
 
         const {error}:{error:joi.ValidationError} = schema.validate(body, {abortEarly:false});
