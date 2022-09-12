@@ -12,13 +12,13 @@ export async function createSafeNote(_req:Request, res:Response){
     return res.status(201).send(safeNote);
 }
 
-// export async function listCredentials(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
+export async function listSafeNotes(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
 
-//     const credentials:Credential[] = await credentialService.listCredentials(sessionId);
+    const safeNotes:SafeNote[] = await safeNoteService.listSafeNotes(sessionId);
 
-//     return res.status(200).send(credentials);
-// }
+    return res.status(200).send(safeNotes);
+}
 
 // export async function listCredentialById(_req:Request, res:Response){
 //     const sessionId: number = res.locals.sessionId;

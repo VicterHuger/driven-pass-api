@@ -10,7 +10,7 @@ const router:Router = Router();
 
 router.post('/safeNotes/create', validateSchema<TypeSafeNoteInsert>(safeNoteSchema), tokenValidation , safeNoteController.createSafeNote);
 
-// router.get('/safeNotes', tokenValidation, safeNoteController.listSafeNotes);
+router.get('/safeNotes', tokenValidation, safeNoteController.listSafeNotes);
 
 // router.get('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.listSafeNoteById );
 

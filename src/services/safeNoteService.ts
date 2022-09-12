@@ -3,7 +3,7 @@ import { SafeNote } from "@prisma/client";
 import * as sessionService from './sessionService';
 import * as safeNoteRepository from '../repositories/safeNoteRepository';
 import { generateThrowErrorMessage } from "../utils/errorUtils";
-import { cryptrPasswords, descryptItemOfEncryptArray, descryptrPasswords } from "../utils/generalFunctions";
+import { cryptrPasswords, descryptrPasswords } from "../utils/generalFunctions";
 
 
 export async function createSafeNote(body:TypeSafeNoteInsert, sessionId:number){
@@ -15,12 +15,12 @@ export async function createSafeNote(body:TypeSafeNoteInsert, sessionId:number){
     return {id:safeNoteCreated.id, title:safeNoteCreated.title, text:safeNoteCreated.text};
 }
 
-// export async function listCredentials(sessionId:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const credentialsByUser = await credentialRepository.getCredentialsByUser(userId);
-//     if(!credentialsByUser) return [];
-//     return descryptItemOfEncryptArray<Credential>(credentialsByUser);
-// }
+export async function listSafeNotes(sessionId:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const safeNotesByUser = await safeNoteRepository.getSafeNoteByUser(userId);
+    if(!safeNotesByUser) return [];
+    return safeNotesByUser;
+}
 
 // export async function listCredentialById(sessionId:number, id:number){
 //     const userId:number = await sessionService.getUserBySessionId(sessionId);

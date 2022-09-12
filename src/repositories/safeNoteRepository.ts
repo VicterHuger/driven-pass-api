@@ -9,9 +9,9 @@ export async function createSafeNote(safeNote:TypeSafeNoteInsert, userId:number)
     return await prisma.safeNote.create({data:{...safeNote,userId }});
 }
 
-// export async function getCredentialsByUser(userId:number){
-//     return await prisma.credential.findMany({where:{userId}});
-// }
+export async function getSafeNoteByUser(userId:number){
+    return await prisma.safeNote.findMany({where:{userId}});
+}
 
 // export async function getCredentialById(id:number){
 //     return await prisma.credential.findUnique({where:{id}});
