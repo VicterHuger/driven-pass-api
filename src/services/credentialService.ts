@@ -3,13 +3,13 @@ import { Credential } from "@prisma/client";
 import * as sessionService from './sessionService';
 import * as credentialRepository from '../repositories/credentialRepository';
 import { generateThrowErrorMessage } from "../utils/errorUtils";
-import { cryptrPasswords, descryptItemOfEncryptArray } from "../utils/generalFunctions";
+import { cryptrPasswords, descryptItemOfEncryptArray, descryptrPasswords } from "../utils/generalFunctions";
 
 
 export async function createCredencial(body:TypeCredentialInsert, sessionId:number){
     const userId:number = await sessionService.getUserBySessionId(sessionId);
-    const credentialsByTitle:Credential[] = await credentialRepository.getCredentialByUserAndTitle(userId, body.title);
-    if(credentialsByTitle && credentialsByTitle.length>0) generateThrowErrorMessage('Conflict', 'There is already a credential with this title created by you');
+    const credentialsByTitle = await credentialRepository.getCredentialByUserAndTitle(userId, body.title);
+    if(credentialsByTitle) generateThrowErrorMessage('Conflict', 'There is already a credential with this title created by you');
     const credentialsByUrl:Credential[] = await credentialRepository.getCredentialByUserAndUrl(userId, body.url);
     const maximunCredentialsByURL = 2;
     if(credentialsByUrl.length>=maximunCredentialsByURL) generateThrowErrorMessage('Conflict', `You have reached the maximum credentials by url (${maximunCredentialsByURL}) `);
@@ -26,3 +26,11 @@ export async function listCredentials(sessionId:number){
     return descryptItemOfEncryptArray<Credential>(credentialsByUser);
 }
 
+export async function listCredentialById(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const credential = await credentialRepository.getCredentialById(id);
+    if(!credential) generateThrowErrorMessage("NotFound", "There is no credential with this id");
+    if(credential.userId !== userId) generateThrowErrorMessage("Unauthorized", "This credential do not belongs to you!");
+    credential.password = descryptrPasswords(credential.password);
+    return credential;
+}

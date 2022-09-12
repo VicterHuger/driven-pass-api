@@ -19,3 +19,12 @@ export async function listCredentials(_req:Request, res:Response){
 
     return res.status(200).send(credentials);
 }
+
+export async function listCredentialById(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
+
+    const credential:Credential = await credentialService.listCredentialById(sessionId,id);
+
+    return res.status(200).send(credential);
+}
