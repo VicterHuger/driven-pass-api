@@ -12,7 +12,7 @@ router.post('/safeNotes/create', validateSchema<TypeSafeNoteInsert>(safeNoteSche
 
 router.get('/safeNotes', tokenValidation, safeNoteController.listSafeNotes);
 
-// router.get('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.listSafeNoteById );
+router.get('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.listSafeNoteById );
 
 // router.delete('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.deleteSafeNote);
 

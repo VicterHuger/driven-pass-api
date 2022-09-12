@@ -13,9 +13,9 @@ export async function getSafeNoteByUser(userId:number){
     return await prisma.safeNote.findMany({where:{userId}});
 }
 
-// export async function getCredentialById(id:number){
-//     return await prisma.credential.findUnique({where:{id}});
-// }
+export async function getSafeNoteById(id:number){
+    return await prisma.safeNote.findUnique({where:{id}});
+}
 
 // export async function deleteCredential(id:number){
 //     return await prisma.credential.delete({where:{id}});

@@ -20,14 +20,14 @@ export async function listSafeNotes(_req:Request, res:Response){
     return res.status(200).send(safeNotes);
 }
 
-// export async function listCredentialById(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
-//     const id:number = res.locals.id;
+export async function listSafeNoteById(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
 
-//     const credential:Credential = await credentialService.listCredentialById(sessionId,id);
+    const safeNote:SafeNote = await safeNoteService.listSafeNoteById(sessionId,id);
 
-//     return res.status(200).send(credential);
-// }
+    return res.status(200).send(safeNote);
+}
 
 // export async function deleteCredential(_req:Request, res:Response){
 //     const sessionId: number = res.locals.sessionId;

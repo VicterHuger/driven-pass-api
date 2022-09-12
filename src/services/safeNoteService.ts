@@ -22,14 +22,13 @@ export async function listSafeNotes(sessionId:number){
     return safeNotesByUser;
 }
 
-// export async function listCredentialById(sessionId:number, id:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const credential = await credentialRepository.getCredentialById(id);
-//     if(!credential) generateThrowErrorMessage("NotFound", "There is no credential with this id");
-//     if(credential.userId !== userId) generateThrowErrorMessage("Unauthorized", "This credential do not belongs to you!");
-//     credential.password = descryptrPasswords(credential.password);
-//     return credential;
-// }
+export async function listSafeNoteById(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const safeNote:SafeNote = await safeNoteRepository.getSafeNoteById(id);
+    if(!safeNote) generateThrowErrorMessage("NotFound", "There is no safe note with this id");
+    if(safeNote.userId !== userId) generateThrowErrorMessage("Unauthorized", "This safe note do not belongs to you!");
+    return safeNote;
+}
 
 // export async function deleteCredential(sessionId:number, id:number){
 //     const userId:number = await sessionService.getUserBySessionId(sessionId);
