@@ -29,11 +29,11 @@ export async function listSafeNoteById(_req:Request, res:Response){
     return res.status(200).send(safeNote);
 }
 
-// export async function deleteCredential(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
-//     const id:number = res.locals.id;
+export async function deleteSafeNote(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
 
-//     await credentialService.deleteCredential(sessionId,id);
+    await safeNoteService.deleteSafeNote(sessionId,id);
 
-//     return res.status(204).send('Credential deleted');
-// }
+    return res.status(204).send('Credential deleted');
+}

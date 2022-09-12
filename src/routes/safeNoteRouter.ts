@@ -14,6 +14,6 @@ router.get('/safeNotes', tokenValidation, safeNoteController.listSafeNotes);
 
 router.get('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.listSafeNoteById );
 
-// router.delete('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.deleteSafeNote);
+router.delete('/safeNotes/:id', tokenValidation, validateParamId, safeNoteController.deleteSafeNote);
 
 export default router;

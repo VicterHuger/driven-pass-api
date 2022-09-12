@@ -30,12 +30,12 @@ export async function listSafeNoteById(sessionId:number, id:number){
     return safeNote;
 }
 
-// export async function deleteCredential(sessionId:number, id:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const credential = await credentialRepository.getCredentialById(id);
-//     if(!credential) generateThrowErrorMessage("NotFound", "There is no credential with this id");
-//     if(credential.userId !== userId) generateThrowErrorMessage("Unauthorized", "This credential do not belongs to you!");
-//     const credentialDeleted = await credentialRepository.deleteCredential(id);
-//     if(!credentialDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this credential");
-//     return;
-// }
+export async function deleteSafeNote(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const safeNote = await safeNoteRepository.getSafeNoteById(id);
+    if(!safeNote) generateThrowErrorMessage("NotFound", "There is no safe note with this id");
+    if(safeNote.userId !== userId) generateThrowErrorMessage("Unauthorized", "This safe note do not belongs to you!");
+    const safeNoteDeleted = await safeNoteRepository.deleteSafeNote(id);
+    if(!safeNoteDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this safe note");
+    return;
+}
