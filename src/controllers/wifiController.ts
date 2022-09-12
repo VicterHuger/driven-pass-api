@@ -12,22 +12,22 @@ export async function createWifi(_req:Request, res:Response){
     return res.status(201).send(wifi);
 }
 
-// export async function listwifis(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
+export async function listWifis(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
 
-//     const wifis:wifi[] = await wifiService.listwifis(sessionId);
+    const wifis:Wifi[] = await wifiService.listWifis(sessionId);
 
-//     return res.status(200).send(wifis);
-// }
+    return res.status(200).send(wifis);
+}
 
-// export async function listwifiById(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
-//     const id:number = res.locals.id;
+export async function listWifiById(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
 
-//     const wifi:wifi = await wifiService.listwifiById(sessionId,id);
+    const wifi:Wifi = await wifiService.listWifiById(sessionId,id);
 
-//     return res.status(200).send(wifi);
-// }
+    return res.status(200).send(wifi);
+}
 
 // export async function deletewifi(_req:Request, res:Response){
 //     const sessionId: number = res.locals.sessionId;

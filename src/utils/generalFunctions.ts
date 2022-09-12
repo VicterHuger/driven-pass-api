@@ -1,8 +1,9 @@
 import Cryptr from 'cryptr';
 
 interface IArrayEncrypted {
-    password:string;
+    password?:string
     securityCode?:string
+    networkPassword?:string
 }
 
 export function cryptrPasswords(password:string){
@@ -18,8 +19,9 @@ export function descryptrPasswords(password:string){
 export function descryptItemOfEncryptArray <T extends IArrayEncrypted> (array:T[]){
     const newArray = [...array];
     newArray.forEach(item =>{
-        item.password = descryptrPasswords(item.password);
-        if(item.securityCode) item.securityCode = descryptrPasswords(item.securityCode)
+        if(item.password ) item.password= descryptrPasswords(item.password);
+        if(item?.securityCode) item.securityCode = descryptrPasswords(item.securityCode);
+        if(item?.networkPassword) item.networkPassword = descryptrPasswords(item.networkPassword);
     } )
     return newArray;
 }

@@ -10,9 +10,9 @@ const router:Router = Router();
 
 router.post('/wifis/create', validateSchema<TypeWifiInsert>(wifiSchema), tokenValidation , wifiController.createWifi);
 
-// router.get('/wifis', tokenValidation, wifiController.listwifis);
+router.get('/wifis', tokenValidation, wifiController.listWifis);
 
-// router.get('/wifis/:id', tokenValidation, validateParamId, wifiController.listwifiById );
+router.get('/wifis/:id', tokenValidation, validateParamId, wifiController.listWifiById );
 
 // router.delete('/wifis/:id', tokenValidation, validateParamId, wifiController.deletewifi);
 

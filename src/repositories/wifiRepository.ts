@@ -9,13 +9,13 @@ export async function createWifi(wifi:TypeWifiInsert, userId:number){
     return await prisma.wifi.create({data:{...wifi,userId }});
 }
 
-// export async function getWifiByUser(userId:number){
-//     return await prisma.wifi.findMany({where:{userId}});
-// }
+export async function getWifiByUser(userId:number){
+    return await prisma.wifi.findMany({where:{userId}});
+}
 
-// export async function getWifiById(id:number){
-//     return await prisma.wifi.findUnique({where:{id}});
-// }
+export async function getWifiById(id:number){
+    return await prisma.wifi.findUnique({where:{id}});
+}
 
 // export async function deleteWifi(id:number){
 //     return await prisma.wifi.delete({where:{id}});
