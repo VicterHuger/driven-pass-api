@@ -34,3 +34,13 @@ export async function listCredentialById(sessionId:number, id:number){
     credential.password = descryptrPasswords(credential.password);
     return credential;
 }
+
+export async function deleteCredential(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const credential = await credentialRepository.getCredentialById(id);
+    if(!credential) generateThrowErrorMessage("NotFound", "There is no credential with this id");
+    if(credential.userId !== userId) generateThrowErrorMessage("Unauthorized", "This credential do not belongs to you!");
+    const credentialDeleted = await credentialRepository.deleteCredential(id);
+    if(!credentialDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this credential");
+    return;
+}

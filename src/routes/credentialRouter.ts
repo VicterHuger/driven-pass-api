@@ -14,4 +14,6 @@ router.get('/credentials', tokenValidation, credentialController.listCredentials
 
 router.get('/credentials/:id', tokenValidation, validateParamId, credentialController.listCredentialById );
 
+router.delete('/credentials/:id', tokenValidation, validateParamId, credentialController.deleteCredential);
+
 export default router;

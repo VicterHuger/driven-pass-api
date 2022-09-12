@@ -28,3 +28,12 @@ export async function listCredentialById(_req:Request, res:Response){
 
     return res.status(200).send(credential);
 }
+
+export async function deleteCredential(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
+
+    await credentialService.deleteCredential(sessionId,id);
+
+    return res.status(204).send('Credential deleted');
+}
