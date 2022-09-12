@@ -34,12 +34,12 @@ export async function listCardById(sessionId:number, id:number){
     return card;
 }
 
-// export async function deletecard(sessionId:number, id:number){
-//     const userId:number = await sessionService.getUserBySessionId(sessionId);
-//     const card = await cardRepository.getcardById(id);
-//     if(!card) generateThrowErrorMessage("NotFound", "There is no card with this id");
-//     if(card.userId !== userId) generateThrowErrorMessage("Unauthorized", "This card do not belongs to you!");
-//     const cardDeleted = await cardRepository.deletecard(id);
-//     if(!cardDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this card");
-//     return;
-// }
+export async function deleteCard(sessionId:number, id:number){
+    const userId:number = await sessionService.getUserBySessionId(sessionId);
+    const card = await cardRepository.getCardById(id);
+    if(!card) generateThrowErrorMessage("NotFound", "There is no card with this id");
+    if(card.userId !== userId) generateThrowErrorMessage("Unauthorized", "This card do not belongs to you!");
+    const cardDeleted = await cardRepository.deleteCard(id);
+    if(!cardDeleted) generateThrowErrorMessage("InternalServerError", "Something went wrong and it was not possible to delete this card");
+    return;
+}

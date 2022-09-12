@@ -29,11 +29,11 @@ export async function listCardById(_req:Request, res:Response){
     return res.status(200).send(card);
 }
 
-// export async function deletecard(_req:Request, res:Response){
-//     const sessionId: number = res.locals.sessionId;
-//     const id:number = res.locals.id;
+export async function deleteCard(_req:Request, res:Response){
+    const sessionId: number = res.locals.sessionId;
+    const id:number = res.locals.id;
 
-//     await cardService.deletecard(sessionId,id);
+    await cardService.deleteCard(sessionId,id);
 
-//     return res.status(204).send('card deleted');
-// }
+    return res.status(204).send('Card deleted');
+}

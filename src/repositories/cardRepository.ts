@@ -17,6 +17,6 @@ export async function getCardById(id:number){
     return await prisma.card.findUnique({where:{id}});
 }
 
-// export async function deletecard(id:number){
-//     return await prisma.card.delete({where:{id}});
-// }
+export async function deleteCard(id:number){
+    return await prisma.card.delete({where:{id}});
+}

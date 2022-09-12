@@ -14,6 +14,6 @@ router.get('/cards', tokenValidation, cardController.listCards);
 
 router.get('/cards/:id', tokenValidation, validateParamId, cardController.listCardById );
 
-// router.delete('/cards/:id', tokenValidation, validateParamId, cardController.deleteCard);
+router.delete('/cards/:id', tokenValidation, validateParamId, cardController.deleteCard);
 
 export default router;
