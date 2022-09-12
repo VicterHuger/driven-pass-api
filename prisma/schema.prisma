@@ -16,7 +16,7 @@ model User {
   password          String    
   sessions          Session[] 
   credentials       Credential[]
-  textSafes         TextSafe[]
+  safeNotes         SafeNote[]
   cards             Card[]
   wifis             Wifi[]
 }
@@ -37,7 +37,7 @@ model Credential {
   userId            Int
 }
 
-model TextSafe {
+model SafeNote {
   id                Int             @id @default(autoincrement())
   title             String          
   text              String          
