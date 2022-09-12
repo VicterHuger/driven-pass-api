@@ -35,5 +35,5 @@ export async function deleteSafeNote(_req:Request, res:Response){
 
     await safeNoteService.deleteSafeNote(sessionId,id);
 
-    return res.status(204).send('Credential deleted');
+    return res.status(204).send('Safe note deleted');
 }
